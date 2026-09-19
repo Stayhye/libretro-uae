@@ -116,7 +116,9 @@ else ifeq ($(platform), ps2)
    FRONTEND_SUPPORTS_RGB565 = 0
    # Exclude the caps dynamic loader since PS2 has no dlfcn.h support
    DISABLED_CAPS = 1
-   
+   ifeq ($(platform), ps2)
+   SOURCES_C := $(filter-out %/uae_dlopen.c, $(SOURCES_C))
+   endif
 # OSX
 else ifeq ($(platform), osx)
    TARGET := $(TARGET_NAME)_libretro.dylib
