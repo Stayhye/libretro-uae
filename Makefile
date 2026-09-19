@@ -114,6 +114,8 @@ else ifeq ($(platform), ps2)
    STATIC_LINKING_LINK=1
    PLATFORM_DEFINES := -DPS2 -DVIDEO_ABGR1555 -DIOAPI_NO_64
    FRONTEND_SUPPORTS_RGB565 = 0
+   # Exclude the caps dynamic loader since PS2 has no dlfcn.h support
+   DISABLED_CAPS = 1
    
 # OSX
 else ifeq ($(platform), osx)
