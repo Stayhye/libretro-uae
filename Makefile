@@ -350,9 +350,10 @@ CXXFLAGS += -DUAE -MMD
 
 include Makefile.common
 
-# Exclude uae_dlopen.c for PS2 because it requires dlfcn.h
+# Exclude all caps/IPF support files for PS2 because they require dynamic loading
 ifeq ($(platform), ps2)
-   SOURCES_C := $(filter-out %/uae_dlopen.c, $(SOURCES_C))
+   SOURCES_C := $(filter-out %/caps/%.c, $(SOURCES_C))
+   SOURCES_C := $(filter-out sources/src/caps/%, $(SOURCES_C))
 endif
 
 OBJECTS     += $(SOURCES_C:.c=.o) $(SOURCES_CXX:.cpp=.o) $(SOURCES_ASM:.S=.o)
