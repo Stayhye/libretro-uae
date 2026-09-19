@@ -116,9 +116,7 @@ else ifeq ($(platform), ps2)
    FRONTEND_SUPPORTS_RGB565 = 0
    # Exclude the caps dynamic loader since PS2 has no dlfcn.h support
    DISABLED_CAPS = 1
-   ifeq ($(platform), ps2)
-   SOURCES_C := $(filter-out %/uae_dlopen.c, $(SOURCES_C))
-   endif
+   
 # OSX
 else ifeq ($(platform), osx)
    TARGET := $(TARGET_NAME)_libretro.dylib
@@ -351,6 +349,11 @@ endif
 CXXFLAGS += -DUAE -MMD
 
 include Makefile.common
+
+# Exclude uae_dlopen.c for PS2 because it requires dlfcn.h
+ifeq ($(platform), ps2)
+   SOURCES_C := $(filter-out %/uae_dlopen.c, $(SOURCES_C))
+endif
 
 OBJECTS     += $(SOURCES_C:.c=.o) $(SOURCES_CXX:.cpp=.o) $(SOURCES_ASM:.S=.o)
 
